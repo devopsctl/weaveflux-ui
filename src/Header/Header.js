@@ -14,6 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
+import HamburgerMenu from 'react-hamburger-menu';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -94,6 +95,7 @@ class PrimarySearchAppBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
+    open: false
   };
 
   handleProfileMenuOpen = event => {
@@ -112,6 +114,12 @@ class PrimarySearchAppBar extends React.Component {
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
   };
+
+  handleClick() {
+    this.setState({
+      open: !this.state.open
+    })
+  }
 
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
@@ -153,9 +161,20 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <MenuIcon />
-            </IconButton>
+            <div className={classes.menuButton}>
+              <HamburgerMenu
+                className={classes.menuButton}
+                isOpen={this.state.open}
+                menuClicked={this.handleClick.bind(this)}
+                width={18}
+                height={15}
+                strokeWidth={2}
+                rotate={0}
+                color='white'
+                borderRadius={0}
+                animationDuration={0.5}
+              />
+            </div>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
               Weaveflux-UI
             </Typography>
